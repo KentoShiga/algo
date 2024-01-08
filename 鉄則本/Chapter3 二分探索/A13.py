@@ -1,5 +1,5 @@
 def subcom(x, y ,k):
-    if(y - x <= 1):
+    if(y - x <= k):
         return True
     else:
         return False
@@ -7,18 +7,14 @@ def subcom(x, y ,k):
 N, K = map(int, input().split())
 A = list(map(int, input().split()))
 
-left = 0
-right = 1
+right = 0
 count = 0
 
-while right - left > 1:
-    if(subcom(A[left], A[right], K)):
-        count += 1
-        if(A[right] < N - 1):
-            right += 1
-        else:
-            break
-    else:
-        left += 1
-        count += right - left + 1
+#大事ポイント2：leftを固定してrightを動かす。このときleftは0からN - 2までのN - 1通りの値を取ることは確定なのでループをrange(N - 1)とする
+for i in range(N -1):
+    left = i
+    while right < N - 1 and subcom(A[left], A[right + 1], K):
+      right += 1
+    #大事ポイント1：right - leftで小さい数がleftのときの組み合わせ数を求められる→条件を満たす最大のrightを求めるプロセスを前に入れる
+    count += right - left
 print(count)

@@ -11,4 +11,4 @@ for i, item in enumerate(setB):
 
 for i in range(N):
     print(dicB[A[i]], end = " ")
-print()
+print() 
